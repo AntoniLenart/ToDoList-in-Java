@@ -1,6 +1,8 @@
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;	
 
 public class Login {
 
@@ -35,4 +37,26 @@ public class Login {
             return false;
         }
     }
+    
+    public void setUsername(String newUsername) {
+    	this.username = newUsername;
+    	updateCredentials();
+    }
+    
+    public void setPassword(String newPassword) {
+    	this.password = newPassword;
+    	updateCredentials();
+    }
+    
+    private void updateCredentials() {
+    	try {
+			FileWriter writer = new FileWriter("C:\\Users\\antek\\eclipse-workspace\\ToDoList\\src\\credentials.txt");
+			writer.write(username + "\n" + password);
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    
 }
