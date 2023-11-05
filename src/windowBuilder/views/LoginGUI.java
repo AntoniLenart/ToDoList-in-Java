@@ -18,14 +18,15 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class LoginGUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textPassword;
 	private JTextField textUsername;
 	private JButton btnLogin;
+	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -77,38 +78,31 @@ public class LoginGUI extends JFrame {
 		lblPassword.setFont(new Font("Verdana", Font.PLAIN, 20));
 		
 		btnLogin = new JButton("Log in");
-
-		
-		textPassword = new JTextField();
-		textPassword.setColumns(10);
 		
 		textUsername = new JTextField();
 		textUsername.setColumns(10);
 		
 		JLabel lblUsername = new JLabel("Username:");
 		lblUsername.setFont(new Font("Verdana", Font.PLAIN, 20));
+		
+		passwordField = new JPasswordField();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap(9, Short.MAX_VALUE)
-							.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblPassword)))
+						.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblPassword))
 					.addGap(10)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap())
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(textPassword, GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(textUsername, GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
-									.addPreferredGap(ComponentPlacement.RELATED)))
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+								.addComponent(passwordField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+								.addComponent(textUsername, GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))
 							.addGap(10))))
 		);
 		gl_contentPane.setVerticalGroup(
@@ -120,8 +114,8 @@ public class LoginGUI extends JFrame {
 						.addComponent(lblUsername))
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblPassword))
+						.addComponent(lblPassword)
+						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(120, Short.MAX_VALUE))
@@ -136,11 +130,15 @@ public class LoginGUI extends JFrame {
 	//////////////////////////////////////////////////////////////////////
 	private void createEvents() 
 	{
-		btnLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnLogin.addActionListener(new ActionListener() 
+		{
+			//Using convertion from char [] to string because password.getText() is deprecated.
+			public void actionPerformed(ActionEvent e) 
+			{
 				Login login = new Login();
-				
-				if(login.run(textUsername.getText(), textPassword.getText()))
+				char [] passwordChars = passwordField.getPassword();
+				String password = new String(passwordChars);
+				if(login.run(textUsername.getText(), password))
 				{
 					JOptionPane.showMessageDialog(null, "Logging in!");
 				} else 
