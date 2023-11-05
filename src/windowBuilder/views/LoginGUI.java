@@ -19,7 +19,8 @@ import javax.swing.JPasswordField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 
-public class LoginGUI extends JFrame {
+public class LoginGUI extends JFrame 
+{
 
 	//Components.
 	private static final long serialVersionUID = 1L;

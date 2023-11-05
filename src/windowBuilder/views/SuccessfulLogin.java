@@ -14,7 +14,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SuccessfulLogin extends JFrame {
+public class SuccessfulLogin extends JFrame 
+{
 
 	//Components
 	private static final long serialVersionUID = 1L;
@@ -25,13 +26,19 @@ public class SuccessfulLogin extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
+	public static void main(String[] args) 
+	{
+		EventQueue.invokeLater(new Runnable() 
+		{
+			public void run() 
+			{
+				try 
+				{
 					SuccessfulLogin frame = new SuccessfulLogin("");
 					frame.setVisible(true);
-				} catch (Exception e) {
+				} 
+				catch (Exception e) 
+				{
 					e.printStackTrace();
 				}
 			}
@@ -41,12 +48,16 @@ public class SuccessfulLogin extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SuccessfulLogin(String username) {
+	public SuccessfulLogin(String username) 
+	{
 		this.username = username;
 		initComponents();
+		
         // Create a timer with a 2-second delay
-        timer = new Timer(2000, new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        timer = new Timer(2000, new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
                 dispose(); // Close the window when the timer expires
             }
         });

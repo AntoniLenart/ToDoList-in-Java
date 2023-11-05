@@ -14,7 +14,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class NotSuccessfulLogin extends JFrame {
+public class NotSuccessfulLogin extends JFrame 
+{
 	
 	//Components
 	private static final long serialVersionUID = 1L;
@@ -24,13 +25,19 @@ public class NotSuccessfulLogin extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
+	public static void main(String[] args) 
+	{
+		EventQueue.invokeLater(new Runnable() 
+		{
+			public void run() 
+			{
+				try 
+				{
 					NotSuccessfulLogin frame = new NotSuccessfulLogin();
 					frame.setVisible(true);
-				} catch (Exception e) {
+				} 
+				catch (Exception e) 
+				{
 					e.printStackTrace();
 				}
 			}
@@ -40,7 +47,8 @@ public class NotSuccessfulLogin extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public NotSuccessfulLogin() {
+	public NotSuccessfulLogin() 
+	{
 		initComponents();
 		createEvents();
 	}
