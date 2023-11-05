@@ -19,7 +19,7 @@ public class Login
     {
         try 
         {
-            Scanner scan = new Scanner(new File("src/credentials.txt"));
+            Scanner scan = new Scanner(new File("src/app/credentials.txt"));
 
             username = scan.nextLine();
             password = scan.nextLine();
@@ -45,6 +45,10 @@ public class Login
     	this.username = newUsername;
     	updateCredentials();
     }
+    public String getUsername() 
+    {
+    	return this.username;
+    }
     
     public void setPassword(String newPassword) 
     {
@@ -52,11 +56,12 @@ public class Login
     	updateCredentials();
     }
     
+    //This method overwrites credentials in txt file.
     private void updateCredentials() 
     {
     	try 
     	{
-			FileWriter writer = new FileWriter("src/credentials.txt");
+			FileWriter writer = new FileWriter("src/app/credentials.txt");
 			writer.write(username + "\n" + password);
 			writer.close();
 		} 

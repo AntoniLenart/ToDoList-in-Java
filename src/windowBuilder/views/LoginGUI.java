@@ -2,7 +2,6 @@ package windowBuilder.views;
 
 import app.Login;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -11,17 +10,18 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
 
 public class LoginGUI extends JFrame {
 
+	//Components.
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textUsername;
@@ -59,10 +59,9 @@ public class LoginGUI extends JFrame {
 		createEvents();
 	}
 
-	//////////////////////////////////////////////////////////////////////
-	//This method contains all of the code for creating and initializing 
-	//components.
-	//////////////////////////////////////////////////////////////////////
+	
+	//This method contains all of the code for creating and initializing components.
+	
 	private void initComponents() 
 	{
 		setTitle("Login");
@@ -80,12 +79,14 @@ public class LoginGUI extends JFrame {
 		btnLogin = new JButton("Log in");
 		
 		textUsername = new JTextField();
+		textUsername.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		textUsername.setColumns(10);
 		
 		JLabel lblUsername = new JLabel("Username:");
 		lblUsername.setFont(new Font("Verdana", Font.PLAIN, 20));
 		
 		passwordField = new JPasswordField();
+		passwordField.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -125,25 +126,32 @@ public class LoginGUI extends JFrame {
 	}
 
 
-	//////////////////////////////////////////////////////////////////////
-	//This method contains all of the code for creating events
-	//////////////////////////////////////////////////////////////////////
+	//This method contains all of the code for creating events.
+
 	private void createEvents() 
 	{
 		btnLogin.addActionListener(new ActionListener() 
 		{
-			//Using convertion from char [] to string because password.getText() is deprecated.
+			//Using conversion from char[] to string because password.getText() is deprecated.
 			public void actionPerformed(ActionEvent e) 
 			{
 				Login login = new Login();
+				
 				char [] passwordChars = passwordField.getPassword();
 				String password = new String(passwordChars);
+				
 				if(login.run(textUsername.getText(), password))
 				{
-					JOptionPane.showMessageDialog(null, "Logging in!");
+					//Shut down the current window and run succesfullWindow(2 sec).
+					dispose();
+					SuccessfulLogin successfullLoginWindow = new SuccessfulLogin(textUsername.getText());
+					successfullLoginWindow.setVisible(true);
 				} else 
 				{
-					JOptionPane.showMessageDialog(null, "Wrong Credentials");
+					//Reset username and password fields.
+					JOptionPane.showMessageDialog(null, "Wrong credentials, try again.");
+					textUsername.setText(null);
+					passwordField.setText(null);
 				}
 			}
 		});
