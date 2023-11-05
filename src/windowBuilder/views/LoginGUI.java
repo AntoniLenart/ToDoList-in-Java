@@ -1,5 +1,6 @@
 package windowBuilder.views;
 
+import app.Login;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -9,17 +10,22 @@ import java.awt.Toolkit;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class LoginGUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField_password;
-	private JTextField textField;
+	private JTextField textPassword;
+	private JTextField textUsername;
+	private JButton btnLogin;
 
 	/**
 	 * Launch the application.
@@ -70,13 +76,14 @@ public class LoginGUI extends JFrame {
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setFont(new Font("Verdana", Font.PLAIN, 20));
 		
-		JButton btnLogin = new JButton("Log in");
+		btnLogin = new JButton("Log in");
+
 		
-		textField_password = new JTextField();
-		textField_password.setColumns(10);
+		textPassword = new JTextField();
+		textPassword.setColumns(10);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		textUsername = new JTextField();
+		textUsername.setColumns(10);
 		
 		JLabel lblUsername = new JLabel("Username:");
 		lblUsername.setFont(new Font("Verdana", Font.PLAIN, 20));
@@ -98,9 +105,9 @@ public class LoginGUI extends JFrame {
 							.addContainerGap())
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(textField_password, GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+								.addComponent(textPassword, GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(textField, GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+									.addComponent(textUsername, GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
 									.addPreferredGap(ComponentPlacement.RELATED)))
 							.addGap(10))))
 		);
@@ -109,11 +116,11 @@ public class LoginGUI extends JFrame {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblUsername))
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_password, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblPassword))
 					.addGap(18)
 					.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
@@ -129,7 +136,19 @@ public class LoginGUI extends JFrame {
 	//////////////////////////////////////////////////////////////////////
 	private void createEvents() 
 	{
-		// TODO Auto-generated method stub
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Login login = new Login();
+				
+				if(login.run(textUsername.getText(), textPassword.getText()))
+				{
+					JOptionPane.showMessageDialog(null, "Logging in!");
+				} else 
+				{
+					JOptionPane.showMessageDialog(null, "Wrong Credentials");
+				}
+			}
+		});
 		
 	}
 }
