@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
@@ -29,10 +30,14 @@ public class MainGUI extends JFrame
 	private JButton btnFinish;
 	private JButton btnAddTask;
 	private JButton btnQuit;
+	private JTextField textFieldAddTask;
+	private JButton btnRemoveTask;
 	private JList<String> listToDo;
 	private JList<String> listFinished;
 	DefaultListModel<String> listToDoModel = new DefaultListModel<>();
 	DefaultListModel<String> listFinishedModel = new DefaultListModel<>();
+
+	
 	/**
 	 * Launch the application.
 	 */
@@ -67,7 +72,7 @@ public class MainGUI extends JFrame
 	private void initComponents() 
 	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 653, 461);
+		setBounds(100, 100, 660, 469);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -90,49 +95,64 @@ public class MainGUI extends JFrame
 		JPanel panelFinished = new JPanel();
 		panelFinished.setBorder(new TitledBorder(null, "Finished", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
+		//Components
 		btnAddTask = new JButton("Add task");
-		
 		btnQuit = new JButton("Quit");
-		
 		btnFinish = new JButton("Finish");
+		textFieldAddTask = new JTextField();
+		btnRemoveTask = new JButton("Remove");
+		
+		listToDo = new JList();
+		listToDo.setModel(listToDoModel);
+		listFinished = new JList();
+		listFinished.setModel(listFinishedModel);
 
-		listToDo = new JList(listToDoModel);
-		listFinished = new JList(listFinishedModel);
+		textFieldAddTask.setColumns(10);
+
+
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblDate)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(10)
+							.addComponent(textFieldAddTask, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(btnAddTask, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnRemoveTask, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(146)
-									.addComponent(btnAddTask)
+									.addComponent(btnFinish, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(btnFinish))
-								.addComponent(panelToDo, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 282, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(panelFinished, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnQuit, Alignment.TRAILING))))
-					.addGap(18, 18, Short.MAX_VALUE))
+									.addComponent(btnQuit))
+								.addComponent(lblDate)))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(panelToDo, GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panelFinished, GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)))
+					.addGap(25))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panelFinished, GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
-						.addComponent(panelToDo, GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(panelToDo, GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+						.addComponent(panelFinished, GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textFieldAddTask, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnFinish)
+						.addComponent(btnAddTask)
+						.addComponent(btnQuit))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnQuit)
-						.addComponent(btnAddTask)
-						.addComponent(btnFinish))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblDate))
+						.addComponent(btnRemoveTask)
+						.addComponent(lblDate)))
 		);
 		
 		JScrollPane scrollToDo = new JScrollPane();
@@ -197,7 +217,26 @@ public class MainGUI extends JFrame
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
+				String newTask = textFieldAddTask.getText();
+				listToDoModel.addElement(newTask);
+				
+				textFieldAddTask.setText(null);
+				listToDo.setModel(listToDoModel);
+			}
+		});
+		
+		btnRemoveTask.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				listToDoModel.remove(listToDo.getSelectedIndex());
+				listToDo.setModel(listToDoModel);
+			}
+		});
+		
+		btnQuit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
 			}
 		});
 	}
+	
 }
