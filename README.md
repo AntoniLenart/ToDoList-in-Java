@@ -9,7 +9,7 @@ I collaborate with ChatGPT helping me learn and troubleshoot.
 
 - **User Authentication**: The application allows the user to input a username and password to simulate basic user authentication.
 
-- **To-Do List Management**: You can add, remove, and manage tasks in your to-do list. (In progress)
+- **To-Do List Management**: You can add, remove, and manage tasks in your to-do list.
 
 ## Getting Started
 
