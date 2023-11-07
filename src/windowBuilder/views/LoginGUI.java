@@ -9,9 +9,9 @@ import java.awt.Toolkit;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -22,14 +22,23 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class LoginGUI extends JFrame 
 {
-
-	//Components.
 	private static final long serialVersionUID = 1L;
+	
+	//Components.
 	private JPanel contentPane;
+	
 	private JTextField textUsername;
-	private JButton btnLogin;
 	private JPasswordField passwordField;
+	
+	private JButton btnLogin;
+	
+	private JLabel lblUsername;
+	private JLabel lblPassword;
 
+	private GroupLayout gl_contentPane;
+	
+	private Timer timer;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -61,35 +70,38 @@ public class LoginGUI extends JFrame
 		createEvents();
 	}
 
-	
 	//This method contains all of the code for creating and initializing components.
 	
 	private void initComponents() 
 	{
+		//Components
+		lblPassword = new JLabel("Password:");
+		lblUsername = new JLabel("Username:");
+		
+		btnLogin = new JButton("Log in");
+		
+		textUsername = new JTextField();
+		passwordField = new JPasswordField();
+		
+		gl_contentPane = new GroupLayout(contentPane);
+
+		/////////////////////////////////////////////AUTO GENERATED CODE/////////////////////////////////////////////
+		
 		setTitle("Login");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginGUI.class.getResource("/windowBuilder/resources/login_128.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
 		
-		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setFont(new Font("Verdana", Font.PLAIN, 20));
-		
-		btnLogin = new JButton("Log in");
-		
-		textUsername = new JTextField();
 		textUsername.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		textUsername.setColumns(10);
-		
-		JLabel lblUsername = new JLabel("Username:");
 		lblUsername.setFont(new Font("Verdana", Font.PLAIN, 20));
 		
-		passwordField = new JPasswordField();
 		passwordField.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
@@ -127,9 +139,7 @@ public class LoginGUI extends JFrame
 					.addContainerGap(117, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
-		
 	}
-
 
 	//This method contains all of the code for creating events.
 
@@ -147,19 +157,34 @@ public class LoginGUI extends JFrame
 				
 				if(login.run(textUsername.getText(), password))
 				{
-					//Shut down the current window and run succesfullWindow(2 sec).
+					//Shut down the current window and run succesfullWindow(2 sec), then run mainGUI.
 					dispose();
-					SuccessfulLogin successfullLoginWindow = new SuccessfulLogin(textUsername.getText());
-					successfullLoginWindow.setVisible(true);
-				} else 
+					SuccessfulLogin successfulLoginWindow = new SuccessfulLogin(textUsername.getText());
+					successfulLoginWindow.setVisible(true);
+					
+			        //Create a timer with a 2-second delay
+			        timer = new Timer(2000, new ActionListener() 
+			        {
+			            public void actionPerformed(ActionEvent e) 
+			            {
+					        successfulLoginWindow.dispose();
+			                MainGUI main = new MainGUI();
+			                main.setVisible(true);
+			            }
+			        });
+			        timer.setRepeats(false);
+			        timer.start();
+				} 
+				else 
 				{
-					//Reset username and password fields.
-					JOptionPane.showMessageDialog(null, "Wrong credentials, try again.");
+					//If incorrect credentials, reset username and password fields.
+					NotSuccessfulLogin notSuccessfulLoginFrame = new NotSuccessfulLogin();
+					notSuccessfulLoginFrame.setVisible(true);
+
 					textUsername.setText(null);
 					passwordField.setText(null);
 				}
 			}
 		});
-		
 	}
 }

@@ -11,7 +11,6 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.ListModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -19,24 +18,38 @@ import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JList;
-import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 
 public class MainGUI extends JFrame 
 {
-
 	private static final long serialVersionUID = 1L;
+	
+	//Components
+	private JTextField textFieldAddTask;
+	
+	private JLabel lblDate;
+	
 	private JPanel contentPane;
+	private JPanel panelToDo;
+	private JPanel panelFinished;
+	
 	private JButton btnFinish;
 	private JButton btnAddTask;
 	private JButton btnQuit;
-	private JTextField textFieldAddTask;
 	private JButton btnRemoveTask;
+	
 	private JList<String> listToDo;
 	private JList<String> listFinished;
-	DefaultListModel<String> listToDoModel = new DefaultListModel<>();
-	DefaultListModel<String> listFinishedModel = new DefaultListModel<>();
-
+	
+	private DefaultListModel<String> listToDoModel = new DefaultListModel<>();
+	private DefaultListModel<String> listFinishedModel = new DefaultListModel<>();
+	
+	private GroupLayout gl_panelToDo;
+	private GroupLayout gl_panelFinished;
+	private GroupLayout gl_contentPane;
+	
+	private JScrollPane scrollToDo;
+	private JScrollPane scrollFinished;
 	
 	/**
 	 * Launch the application.
@@ -69,8 +82,39 @@ public class MainGUI extends JFrame
 		createEvents();
 	}
 	
+	//This method contains all of the code for creating and initializing components.
+	
 	private void initComponents() 
 	{
+		//Components
+		btnAddTask = new JButton("Add task");
+		btnQuit = new JButton("Quit");
+		btnFinish = new JButton("Finish");
+		btnRemoveTask = new JButton("Remove");
+		
+		textFieldAddTask = new JTextField();
+
+		scrollToDo = new JScrollPane();
+		scrollFinished = new JScrollPane();
+		
+		panelToDo = new JPanel();
+		panelFinished = new JPanel();
+		
+		gl_panelToDo = new GroupLayout(panelToDo);
+		gl_panelFinished = new GroupLayout(panelFinished);
+		gl_contentPane = new GroupLayout(contentPane);
+		
+		listFinished = new JList<String>();
+		listToDo = new JList<String>();
+		
+		//Today's date (right down corner)
+		LocalDate todayDate = LocalDate.now();
+		DateTimeFormatter dateFormat= DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		String dateFormated = todayDate.format(dateFormat);
+		lblDate = new JLabel(dateFormated);
+		
+		/////////////////////////////////////////////AUTO GENERATED CODE/////////////////////////////////////////////
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 660, 469);
 		contentPane = new JPanel();
@@ -78,40 +122,17 @@ public class MainGUI extends JFrame
 
 		setContentPane(contentPane);
 		setTitle("ToDoList");
-		
-		//Today date (right down corner)
-		LocalDate todayDate = LocalDate.now();
-		DateTimeFormatter dateFormat= DateTimeFormatter.ofPattern("dd-MM-yyyy");
-		String dateFormated = todayDate.format(dateFormat);
 
-		
-		JLabel lblDate = new JLabel(dateFormated);
-		
 		lblDate.setFont(new Font("Verdana", Font.ITALIC, 11));
-		
-		JPanel panelToDo = new JPanel();
+
 		panelToDo.setBorder(new TitledBorder(null, "ToDo", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		
-		JPanel panelFinished = new JPanel();
+
 		panelFinished.setBorder(new TitledBorder(null, "Finished", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
-		//Components
-		btnAddTask = new JButton("Add task");
-		btnQuit = new JButton("Quit");
-		btnFinish = new JButton("Finish");
-		textFieldAddTask = new JTextField();
-		btnRemoveTask = new JButton("Remove");
-		
-		listToDo = new JList();
 		listToDo.setModel(listToDoModel);
-		listFinished = new JList();
 		listFinished.setModel(listFinishedModel);
-
 		textFieldAddTask.setColumns(10);
-
-
 		
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
@@ -154,9 +175,7 @@ public class MainGUI extends JFrame
 						.addComponent(btnRemoveTask)
 						.addComponent(lblDate)))
 		);
-		
-		JScrollPane scrollToDo = new JScrollPane();
-		GroupLayout gl_panelToDo = new GroupLayout(panelToDo);
+
 		gl_panelToDo.setHorizontalGroup(
 			gl_panelToDo.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelToDo.createSequentialGroup()
@@ -171,12 +190,9 @@ public class MainGUI extends JFrame
 					.addContainerGap())
 		);
 
-
 		scrollToDo.setViewportView(listToDo);
 		panelToDo.setLayout(gl_panelToDo);
-		
-		JScrollPane scrollFinished = new JScrollPane();
-		GroupLayout gl_panelFinished = new GroupLayout(panelFinished);
+
 		gl_panelFinished.setHorizontalGroup(
 			gl_panelFinished.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelFinished.createSequentialGroup()
@@ -191,11 +207,12 @@ public class MainGUI extends JFrame
 					.addContainerGap())
 		);
 
-
 		scrollFinished.setViewportView(listFinished);
 		panelFinished.setLayout(gl_panelFinished);
 		contentPane.setLayout(gl_contentPane);
 	}
+	
+	//This method contains all of the code for creating events.
 	
 	private void createEvents()
 	{
@@ -225,18 +242,21 @@ public class MainGUI extends JFrame
 			}
 		});
 		
-		btnRemoveTask.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnRemoveTask.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
 				listToDoModel.remove(listToDo.getSelectedIndex());
 				listToDo.setModel(listToDoModel);
 			}
 		});
 		
-		btnQuit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
+		btnQuit.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				System.exit(0);
 			}
 		});
 	}
-	
 }

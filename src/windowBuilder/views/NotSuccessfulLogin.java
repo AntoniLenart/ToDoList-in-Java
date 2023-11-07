@@ -16,12 +16,13 @@ import java.awt.event.ActionEvent;
 
 public class NotSuccessfulLogin extends JFrame 
 {
+	private static final long serialVersionUID = 1L;
 	
 	//Components
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton btnTryAgain;
-
+	private JLabel lblNewLabel;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -57,19 +58,20 @@ public class NotSuccessfulLogin extends JFrame
 	
 	private void initComponents() 
 	{
+		//Components
+		lblNewLabel = new JLabel("Incorrect credentials.");
+		contentPane = new JPanel();
+		btnTryAgain = new JButton("Try again");
+		
+		/////////////////////////////////////////////AUTO GENERATED CODE/////////////////////////////////////////////
+
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NotSuccessfulLogin.class.getResource("/windowBuilder/resources/wrong_128.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
-		
-		JLabel lblNewLabel = new JLabel("Incorrect credentials.");
-		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 20));
-		
-		btnTryAgain = new JButton("Try again");
 
+		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 20));
 		btnTryAgain.setFont(new Font("Verdana", Font.BOLD, 20));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -95,12 +97,11 @@ public class NotSuccessfulLogin extends JFrame
 		contentPane.setLayout(gl_contentPane);
 	}
 	
-
 	//This method contains all of the code for creating events
 
 	private void createEvents() 
 	{
-		//After wrong password and clicking "OK", dispose window.
+		//After wrong password and clicking "OK", dispose window to try again.
 		btnTryAgain.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
