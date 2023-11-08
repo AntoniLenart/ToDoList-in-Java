@@ -11,7 +11,6 @@ import java.io.IOException;
 
 public class Login 
 {
-
     private String username;
     private String password;
 
@@ -19,7 +18,7 @@ public class Login
     {
         try 
         {
-            Scanner scan = new Scanner(new File("src/app/credentials.txt"));
+            Scanner scan = new Scanner(new File("src/DataStorage/credentials.txt"));
 
             username = scan.nextLine();
             password = scan.nextLine();
@@ -40,28 +39,31 @@ public class Login
         }
     }
     
+    //Username methods.
     public void setUsername(String newUsername) 
     {
     	this.username = newUsername;
     	updateCredentials();
     }
+    
     public String getUsername() 
     {
     	return this.username;
     }
     
+    //Password methods.
     public void setPassword(String newPassword) 
     {
     	this.password = newPassword;
     	updateCredentials();
     }
     
-    //This method overwrites credentials in txt file.
+    //This method overwrites credentials stored in credentials.txt file.
     private void updateCredentials() 
     {
     	try 
     	{
-			FileWriter writer = new FileWriter("src/app/credentials.txt");
+			FileWriter writer = new FileWriter("src/DataStorage/credentials.txt");
 			writer.write(username + "\n" + password);
 			writer.close();
 		} 

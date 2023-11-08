@@ -1,5 +1,6 @@
 package windowBuilder.views;
 
+import app.Data;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.awt.EventQueue;
@@ -99,6 +100,7 @@ public class MainGUI extends JFrame
 		
 		panelToDo = new JPanel();
 		panelFinished = new JPanel();
+		contentPane = new JPanel();
 		
 		gl_panelToDo = new GroupLayout(panelToDo);
 		gl_panelFinished = new GroupLayout(panelFinished);
@@ -117,7 +119,7 @@ public class MainGUI extends JFrame
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 660, 469);
-		contentPane = new JPanel();
+
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -255,6 +257,9 @@ public class MainGUI extends JFrame
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
+				//Save data then exit.
+				Data data = new Data();
+				data.saveTasks(listToDoModel, listFinishedModel);
 				System.exit(0);
 			}
 		});
