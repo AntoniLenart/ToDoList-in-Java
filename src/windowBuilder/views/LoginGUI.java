@@ -1,7 +1,6 @@
 package windowBuilder.views;
 
 import app.Login;
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -39,31 +38,7 @@ public class LoginGUI extends JFrame
 	
 	private Timer timer;
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) 
-	{
-		EventQueue.invokeLater(new Runnable() 
-		{
-			public void run() 
-			{
-				try 
-				{
-					LoginGUI frame = new LoginGUI();
-					frame.setVisible(true);
-				} 
-				catch (Exception e) 
-				{
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	//Frame
 	public LoginGUI() 
 	{
 		initComponents();
@@ -71,7 +46,6 @@ public class LoginGUI extends JFrame
 	}
 
 	//This method contains all of the code for creating and initializing components.
-	
 	private void initComponents() 
 	{
 		//Components
@@ -142,7 +116,6 @@ public class LoginGUI extends JFrame
 	}
 
 	//This method contains all of the code for creating events.
-
 	private void createEvents() 
 	{
 		btnLogin.addActionListener(new ActionListener() 
@@ -153,9 +126,11 @@ public class LoginGUI extends JFrame
 				Login login = new Login();
 				
 				char [] passwordChars = passwordField.getPassword();
-				String password = new String(passwordChars);
 				
-				if(login.run(textUsername.getText(), password))
+				String password = new String(passwordChars);
+				String username = textUsername.getText();
+				
+				if(login.run(username, password))
 				{
 					//Shut down the current window and run succesfullWindow(2 sec), then run mainGUI.
 					dispose();
@@ -168,7 +143,7 @@ public class LoginGUI extends JFrame
 			            public void actionPerformed(ActionEvent e) 
 			            {
 					        successfulLoginWindow.dispose();
-			                MainGUI main = new MainGUI();
+			                MainGUI main = new MainGUI(username);
 			                main.setVisible(true);
 			            }
 			        });
@@ -178,8 +153,8 @@ public class LoginGUI extends JFrame
 				else 
 				{
 					//If incorrect credentials, reset username and password fields.
-					NotSuccessfulLogin notSuccessfulLoginFrame = new NotSuccessfulLogin();
-					notSuccessfulLoginFrame.setVisible(true);
+					NotSuccessfulLogin frame = new NotSuccessfulLogin();
+					frame.setVisible(true);
 
 					textUsername.setText(null);
 					passwordField.setText(null);

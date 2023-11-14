@@ -3,7 +3,6 @@ package windowBuilder.views;
 import app.Data;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -51,41 +50,18 @@ public class MainGUI extends JFrame
 	
 	private JScrollPane scrollToDo;
 	private JScrollPane scrollFinished;
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) 
-	{
-		EventQueue.invokeLater(new Runnable() 
-		{
-			public void run() 
-			{
-				try 
-				{
-					MainGUI frame = new MainGUI();
-					frame.setVisible(true);
-				} 
-				catch (Exception e) 
-				{
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
-	public MainGUI() 
+	//Frame
+	public MainGUI(String username) 
 	{
-		initComponents();
+		Data tmp = new Data();
+
+		initComponents(tmp.loadTasks(username));
 		createEvents();
 	}
 	
 	//This method contains all of the code for creating and initializing components.
-	
-	private void initComponents() 
+	private void initComponents(DefaultListModel<String>[] loadTasks) 
 	{
 		//Components
 		btnAddTask = new JButton("Add task");
@@ -106,8 +82,11 @@ public class MainGUI extends JFrame
 		gl_panelFinished = new GroupLayout(panelFinished);
 		gl_contentPane = new GroupLayout(contentPane);
 		
-		listFinished = new JList<String>();
 		listToDo = new JList<String>();
+		listFinished = new JList<String>();
+		
+		this.listToDoModel = loadTasks[0];
+		this.listFinishedModel = loadTasks[1];
 		
 		//Today's date (right down corner)
 		LocalDate todayDate = LocalDate.now();
@@ -133,6 +112,7 @@ public class MainGUI extends JFrame
 		
 		listToDo.setModel(listToDoModel);
 		listFinished.setModel(listFinishedModel);
+
 		textFieldAddTask.setColumns(10);
 		
 		gl_contentPane.setHorizontalGroup(
@@ -215,7 +195,6 @@ public class MainGUI extends JFrame
 	}
 	
 	//This method contains all of the code for creating events.
-	
 	private void createEvents()
 	{
 		btnFinish.addActionListener(new ActionListener() 

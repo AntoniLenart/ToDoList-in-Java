@@ -1,7 +1,5 @@
 package windowBuilder.views;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -20,31 +18,6 @@ public class SuccessfulLogin extends JFrame
 	private String username;
 	private JLabel lblSuccess;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) 
-	{
-		EventQueue.invokeLater(new Runnable() 
-		{
-			public void run() 
-			{
-				try 
-				{
-					SuccessfulLogin frame = new SuccessfulLogin("");
-					frame.setVisible(true);
-				} 
-				catch (Exception e) 
-				{
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	//Method uses argument, so user can be welcomed with its username.
 	public SuccessfulLogin(String username) 
 	{
@@ -53,7 +26,6 @@ public class SuccessfulLogin extends JFrame
 	}
 	
 	//This method contains all of the code for creating and initializing components.
-
 	private void initComponents() 
 	{
 		//Components

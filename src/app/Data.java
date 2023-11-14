@@ -2,7 +2,11 @@ package app;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Scanner;
+
 import javax.swing.DefaultListModel;
 
 public class Data 
@@ -10,6 +14,7 @@ public class Data
 	private String[] toDoList;
 	private String[] finishedList;
 	
+	//This method saves tasks to config files (todo_save and finished_save.txt). 
 	public void saveTasks(DefaultListModel<String> toDoModel, DefaultListModel<String> finishedModel) 
 	{
 	    toDoList = new String[toDoModel.getSize()];
@@ -27,7 +32,7 @@ public class Data
 
 	    try 
 	    {
-	        // Save todo tasks.
+	        // Save to-do tasks.
 	        FileWriter writerToDo = new FileWriter("src/DataStorage/todo_save.txt");
 	        BufferedWriter bufferedWriterToDo = new BufferedWriter(writerToDo);
 	        
@@ -53,6 +58,45 @@ public class Data
 	    {
 	        e.printStackTrace();
 	    }
+	}
+	
+	//This method loads tasks using scanner and returns array of length 2
+	//with toDoModel([0]) and finishedModel([1])
+	@SuppressWarnings("unchecked")
+	public DefaultListModel<String>[] loadTasks(String Username)
+	{
+		DefaultListModel<String> toDoListModel = new DefaultListModel<>();
+        DefaultListModel<String> finishedListModel = new DefaultListModel<>();
+        
+		Scanner scanner;
+		try {
+			scanner = new Scanner(new File("src/DataStorage/todo_save.txt"));
+
+			int index = 0;
+			while (scanner.hasNextLine())
+				{
+					toDoListModel.add(index, scanner.nextLine());
+					index++;
+				}	
+			scanner.close();
+			
+			scanner = new Scanner(new File("src/DataStorage/finished_save.txt"));
+			index = 0;
+			while (scanner.hasNextLine())
+				{
+					finishedListModel.add(index, scanner.nextLine());
+					index++;
+				}	
+			scanner.close();
+		} 
+		catch (FileNotFoundException e) 
+		{
+			e.printStackTrace();
+		}
+
+		@SuppressWarnings("rawtypes")
+		DefaultListModel[] array = {toDoListModel, finishedListModel};	
+		return array;
 	}
 } 
 
