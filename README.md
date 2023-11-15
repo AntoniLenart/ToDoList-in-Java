@@ -8,9 +8,9 @@ This is a simple Java/Swing project that demonstrates creating a to-do list appl
 
 - **User Authentication**: The application allows the user to input a username and password to simulate basic user authentication.
 
-- **To-Do List Management**: You can add, remove, and manage tasks in your to-do list. Progress is saved for each user (In progress).
+- **To-Do List Management**: You can add, remove, and manage tasks in your to-do list. 
   
-- **Account Management**: You can change your username and password. (In progress).
+- **Account Management**: You can change your username and password.
   
 ## Getting Started
 
