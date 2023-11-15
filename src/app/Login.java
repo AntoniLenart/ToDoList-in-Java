@@ -58,6 +58,11 @@ public class Login
     	updateCredentials();
     }
     
+    public String getPassword()
+    {
+    	return this.password;
+    }
+    
     //This method overwrites credentials stored in credentials.txt file.
     private void updateCredentials() 
     {

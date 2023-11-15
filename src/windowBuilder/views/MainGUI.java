@@ -3,22 +3,28 @@ package windowBuilder.views;
 import app.Data;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
-import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 
 public class MainGUI extends JFrame 
 {
@@ -50,6 +56,9 @@ public class MainGUI extends JFrame
 	
 	private JScrollPane scrollToDo;
 	private JScrollPane scrollFinished;
+	
+	private JMenuItem mntmChangePassword;
+	private JMenuItem mntmChangeUsername;
 
 	//Frame
 	public MainGUI(String username) 
@@ -98,6 +107,19 @@ public class MainGUI extends JFrame
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 660, 469);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnAccount = new JMenu("Account");
+		menuBar.add(mnAccount);
+		
+		mntmChangePassword = new JMenuItem("Change password");
+
+		mnAccount.add(mntmChangePassword);
+		
+		mntmChangeUsername = new JMenuItem("Change username");
+		mnAccount.add(mntmChangeUsername);
 
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -240,6 +262,16 @@ public class MainGUI extends JFrame
 				Data data = new Data();
 				data.saveTasks(listToDoModel, listFinishedModel);
 				System.exit(0);
+			}
+		});
+		
+		//Run change password method.
+		mntmChangePassword.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				ChangePassword changePassword = new ChangePassword();
+				changePassword.setVisible(true);
 			}
 		});
 	}
