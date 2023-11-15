@@ -3,7 +3,6 @@
 ## Introduction
 
 This is a simple Java/Swing project that demonstrates creating a to-do list application. The project is designed for learning purposes, providing an opportunity to practice Java programming and basic Git/GitHub integration.
-I collaborate with ChatGPT helping me learn and troubleshoot.
 
 ## Features
 
