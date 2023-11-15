@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class ChangePassword extends JFrame 
 {
@@ -55,6 +56,7 @@ public class ChangePassword extends JFrame
 	 */
 	public ChangePassword() 
 	{
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ChangePassword.class.getResource("/windowBuilder/resources/changepassword_128.png")));
 		initComponents();
 		createEvents();
 	}

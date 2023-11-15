@@ -37,6 +37,7 @@ public class LoginGUI extends JFrame
 	private GroupLayout gl_contentPane;
 	
 	private Timer timer;
+	private JButton btnQuit;
 	
 	//Frame
 	public LoginGUI() 
@@ -57,25 +58,10 @@ public class LoginGUI extends JFrame
 		textUsername = new JTextField();
 		passwordField = new JPasswordField();
 		contentPane = new JPanel();
+		
+		btnQuit = new JButton("Quit");
+
 		gl_contentPane = new GroupLayout(contentPane);
-
-		/////////////////////////////////////////////AUTO GENERATED CODE/////////////////////////////////////////////
-		
-		setTitle("Login");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginGUI.class.getResource("/windowBuilder/resources/login_128.png")));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		
-		lblPassword.setFont(new Font("Verdana", Font.PLAIN, 20));
-		textUsername.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		textUsername.setColumns(10);
-		lblUsername.setFont(new Font("Verdana", Font.PLAIN, 20));
-		
-		passwordField.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
@@ -93,9 +79,13 @@ public class LoginGUI extends JFrame
 							.addContainerGap())
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(passwordField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-								.addComponent(textUsername, GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE))
+								.addComponent(passwordField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+								.addComponent(textUsername, GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))
 							.addGap(10))))
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addContainerGap(331, Short.MAX_VALUE)
+					.addComponent(btnQuit)
+					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -110,8 +100,27 @@ public class LoginGUI extends JFrame
 						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(117, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+					.addComponent(btnQuit)
+					.addContainerGap())
 		);
+
+		/////////////////////////////////////////////AUTO GENERATED CODE/////////////////////////////////////////////
+		
+		setTitle("Login");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginGUI.class.getResource("/windowBuilder/resources/login_128.png")));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		
+		lblPassword.setFont(new Font("Verdana", Font.PLAIN, 20));
+		textUsername.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		textUsername.setColumns(10);
+		lblUsername.setFont(new Font("Verdana", Font.PLAIN, 20));
+		
+		passwordField.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		contentPane.setLayout(gl_contentPane);
 	}
 
@@ -159,6 +168,15 @@ public class LoginGUI extends JFrame
 					textUsername.setText(null);
 					passwordField.setText(null);
 				}
+			}
+			
+		});
+		
+		btnQuit.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				System.exit(0);
 			}
 		});
 	}
