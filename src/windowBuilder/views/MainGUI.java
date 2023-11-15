@@ -59,6 +59,7 @@ public class MainGUI extends JFrame
 	private JScrollPane scrollFinished;
 	
 	private JMenuItem mntmChangePassword;
+	private JMenuItem mntmChangeUsername;
 
 	//Frame
 	public MainGUI(String username) 
@@ -115,9 +116,13 @@ public class MainGUI extends JFrame
 		JMenu mnAccount = new JMenu("Account");
 		menuBar.add(mnAccount);
 		
-		mntmChangePassword = new JMenuItem("Change password");
+		mntmChangeUsername = new JMenuItem("Change username");
 
-		mnAccount.add(mntmChangePassword);
+		mnAccount.add(mntmChangeUsername);
+		
+		mntmChangePassword = new JMenuItem("Change password");
+		
+				mnAccount.add(mntmChangePassword);
 
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -221,13 +226,16 @@ public class MainGUI extends JFrame
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				String task = listToDo.getSelectedValue().toString();
-				
-				listToDoModel.removeElement(task);
-				listFinishedModel.addElement(task);
-				
-				listToDo.setModel(listToDoModel);
-				listFinished.setModel(listFinishedModel);
+				if (!listToDo.isSelectionEmpty())
+				{
+					String task = listToDo.getSelectedValue().toString();
+					
+					listToDoModel.removeElement(task);
+					listFinishedModel.addElement(task);
+					
+					listToDo.setModel(listToDoModel);
+					listFinished.setModel(listFinishedModel);
+				}
 			}
 		});
 		
@@ -235,11 +243,14 @@ public class MainGUI extends JFrame
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				String newTask = textFieldAddTask.getText();
-				listToDoModel.addElement(newTask);
-				
-				textFieldAddTask.setText(null);
-				listToDo.setModel(listToDoModel);
+				if(!textFieldAddTask.getText().isEmpty())
+				{
+					String newTask = textFieldAddTask.getText();
+					listToDoModel.addElement(newTask);
+					textFieldAddTask.setText(null);
+					listToDo.setModel(listToDoModel);
+				}
+
 			}
 		});
 		
@@ -247,8 +258,20 @@ public class MainGUI extends JFrame
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				listToDoModel.remove(listToDo.getSelectedIndex());
-				listToDo.setModel(listToDoModel);
+				if (!listToDo.isSelectionEmpty())
+				{
+					listToDoModel.remove(listToDo.getSelectedIndex());
+					listToDo.setModel(listToDoModel);
+					return;
+				}
+				
+				if(!listFinished.isSelectionEmpty())
+				{
+					listFinishedModel.remove(listFinished.getSelectedIndex());
+					listFinished.setModel(listFinishedModel);
+					return;
+				}
+
 			}
 		});
 		
@@ -270,6 +293,16 @@ public class MainGUI extends JFrame
 			{
 				ChangePassword changePassword = new ChangePassword();
 				changePassword.setVisible(true);
+			}
+		});
+		
+		//Run change username method
+		mntmChangeUsername.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				ChangeUsername changeUsername = new ChangeUsername();
+				changeUsername.setVisible(true);
 			}
 		});
 	}
