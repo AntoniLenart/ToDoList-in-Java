@@ -13,12 +13,14 @@ public class Login
 {
     private String username;
     private String password;
+    
+    private String[] DEFAULTTASKS = {"Eat", "Sleep", "Code"};
 
     public boolean run(String inputUsername, String inputPassword) 
     {
         try 
         {
-            Scanner scan = new Scanner(new File("src/DataStorage/credentials.txt"));
+            Scanner scan = new Scanner(new File("src/DataStorage/credentials_" + inputUsername + ".txt"));
 
             username = scan.nextLine();
             password = scan.nextLine();
@@ -39,18 +41,29 @@ public class Login
         }
     }
     
-    //Create account method.
+    //Create account method. Create default task list.
     public void createAccount(String username, String password)
     {
 		try 
 		{
-			FileWriter writer = new FileWriter(new File("src/DataStorage/credentials_" + username + ".txt"));
-			writer.write(username + "\n" + password);
-			writer.close();
+			FileWriter writerCredentials = new FileWriter(new File("src/DataStorage/credentials_" + username + ".txt"));
+			writerCredentials.write(username + "\n" + password);
+			writerCredentials.close();
+			
+			FileWriter writerToDo = new FileWriter(new File("src/DataStorage/todo_save_" + username + ".txt"));
+			for (String task : DEFAULTTASKS)
+			{
+				writerToDo.write(task + "\n");
+			}
+			writerToDo.close();
+			
+			FileWriter writerFinished = new FileWriter(new File("src/DataStorage/finished_save_" + username + ".txt"));
+			writerFinished.write("Create account");
+			writerFinished.close();
+			
 		} 
 		catch (IOException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
@@ -84,7 +97,7 @@ public class Login
     {
     	try 
     	{
-			FileWriter writer = new FileWriter("src/DataStorage/credentials.txt");
+			FileWriter writer = new FileWriter(new File("src/DataStorage/credentials_" + username + ".txt"));
 			writer.write(username + "\n" + password);
 			writer.close();
 		} 

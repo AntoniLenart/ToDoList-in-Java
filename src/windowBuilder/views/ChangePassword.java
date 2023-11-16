@@ -1,7 +1,6 @@
 package windowBuilder.views;
 
 import app.Login;
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -21,6 +20,7 @@ import java.awt.Toolkit;
 public class ChangePassword extends JFrame 
 {
 	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
 	
 	private JPasswordField passwordFieldOldPassword;
@@ -32,33 +32,32 @@ public class ChangePassword extends JFrame
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) 
-	{
-		EventQueue.invokeLater(new Runnable() 
-		{
-			public void run() 
-			{
-				try 
-				{
-					ChangePassword frame = new ChangePassword();
-					frame.setVisible(true);
-				} 
-				catch (Exception e) 
-				{
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) 
+//	{
+//		EventQueue.invokeLater(new Runnable() 
+//		{
+//			public void run() 
+//			{
+//				try 
+//				{
+//					ChangePassword frame = new ChangePassword(username);
+//					frame.setVisible(true);
+//				} 
+//				catch (Exception e) 
+//				{
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public ChangePassword() 
-	{
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ChangePassword.class.getResource("/windowBuilder/resources/changepassword_128.png")));
+	public ChangePassword(String username) 
+	{	
 		initComponents();
-		createEvents();
+		createEvents(username);
 	}
 	
 	private void initComponents()
@@ -81,7 +80,8 @@ public class ChangePassword extends JFrame
 		setTitle("Change password");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 290, 195);
-
+		
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ChangePassword.class.getResource("/windowBuilder/resources/changepassword_128.png")));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -124,7 +124,7 @@ public class ChangePassword extends JFrame
 		contentPane.setLayout(gl_contentPane);
 	}
 	
-	private void createEvents() 
+	private void createEvents(String username) 
 	{
 		btnApply.addActionListener(new ActionListener() 
 		{
@@ -132,7 +132,7 @@ public class ChangePassword extends JFrame
 			{
 		        try 
 		        {
-		            Scanner scan = new Scanner(new File("src/DataStorage/credentials.txt"));
+		            Scanner scan = new Scanner(new File("src/DataStorage/credentials_" + username + ".txt"));
 		            
 		            String username = scan.nextLine();
 		            String password = scan.nextLine();

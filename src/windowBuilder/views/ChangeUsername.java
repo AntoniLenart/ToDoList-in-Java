@@ -32,11 +32,10 @@ public class ChangeUsername extends JFrame
 	/**
 	 * Create the frame.
 	 */
-	public ChangeUsername() 
+	public ChangeUsername(String username) 
 	{
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ChangePassword.class.getResource("/windowBuilder/resources/changepassword_128.png")));
 		initComponents();
-		createEvents();
+		createEvents(username);
 	}
 	
 	private void initComponents()
@@ -64,6 +63,8 @@ public class ChangeUsername extends JFrame
 
 		setContentPane(contentPane);
 
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ChangePassword.class.getResource("/windowBuilder/resources/changepassword_128.png")));
+		
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
@@ -102,7 +103,7 @@ public class ChangeUsername extends JFrame
 		contentPane.setLayout(gl_contentPane);
 	}
 	
-	private void createEvents() 
+	private void createEvents(String username) 
 	{
 		btnApply.addActionListener(new ActionListener() 
 		{
@@ -110,7 +111,7 @@ public class ChangeUsername extends JFrame
 			{
 		        try 
 		        {
-		            Scanner scan = new Scanner(new File("src/DataStorage/credentials.txt"));
+		            Scanner scan = new Scanner(new File("src/DataStorage/credentials_" + username + ".txt"));
 		            
 		            String username = scan.nextLine();
 		            String password = scan.nextLine();

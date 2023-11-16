@@ -32,6 +32,8 @@ public class MainGUI extends JFrame
 	private static final long serialVersionUID = 1L;
 	
 	//Components
+	private String username;
+	
 	private JTextField textFieldAddTask;
 	
 	private JLabel lblDate;
@@ -64,6 +66,7 @@ public class MainGUI extends JFrame
 	//Frame
 	public MainGUI(String username) 
 	{
+		this.username = username;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainGUI.class.getResource("/windowBuilder/resources/todolist_128.png")));
 		Data tmp = new Data();
 
@@ -281,7 +284,7 @@ public class MainGUI extends JFrame
 			{
 				//Save data then exit.
 				Data data = new Data();
-				data.saveTasks(listToDoModel, listFinishedModel);
+				data.saveTasks(listToDoModel, listFinishedModel, username);
 				System.exit(0);
 			}
 		});
@@ -291,7 +294,7 @@ public class MainGUI extends JFrame
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				ChangePassword changePassword = new ChangePassword();
+				ChangePassword changePassword = new ChangePassword(username);
 				changePassword.setVisible(true);
 			}
 		});
@@ -301,7 +304,7 @@ public class MainGUI extends JFrame
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				ChangeUsername changeUsername = new ChangeUsername();
+				ChangeUsername changeUsername = new ChangeUsername(username);
 				changeUsername.setVisible(true);
 			}
 		});

@@ -15,7 +15,7 @@ public class Data
 	private String[] finishedList;
 	
 	//This method saves tasks to config files (todo_save and finished_save.txt). 
-	public void saveTasks(DefaultListModel<String> toDoModel, DefaultListModel<String> finishedModel) 
+	public void saveTasks(DefaultListModel<String> toDoModel, DefaultListModel<String> finishedModel, String username) 
 	{
 	    toDoList = new String[toDoModel.getSize()];
 	    finishedList = new String[finishedModel.getSize()];
@@ -33,7 +33,7 @@ public class Data
 	    try 
 	    {
 	        // Save to-do tasks.
-	        FileWriter writerToDo = new FileWriter("src/DataStorage/todo_save.txt");
+	        FileWriter writerToDo = new FileWriter(new File("src/DataStorage/todo_save_" + username + ".txt"));
 	        BufferedWriter bufferedWriterToDo = new BufferedWriter(writerToDo);
 	        
 	        for (String task : toDoList) 
@@ -44,7 +44,7 @@ public class Data
 	        bufferedWriterToDo.close();
 
 	        // Save finished tasks.
-	        FileWriter writerFinished = new FileWriter("src/DataStorage/finished_save.txt");
+	        FileWriter writerFinished = new FileWriter(new File("src/DataStorage/finished_save_" + username + ".txt"));
 	        BufferedWriter bufferedWriterFinished = new BufferedWriter(writerFinished);
 	        
 	        for (String task : finishedList) 
@@ -63,14 +63,14 @@ public class Data
 	//This method loads tasks using scanner and returns array of length 2
 	//with toDoModel([0]) and finishedModel([1])
 	@SuppressWarnings("unchecked")
-	public DefaultListModel<String>[] loadTasks(String Username)
+	public DefaultListModel<String>[] loadTasks(String username)
 	{
 		DefaultListModel<String> toDoListModel = new DefaultListModel<>();
         DefaultListModel<String> finishedListModel = new DefaultListModel<>();
         
 		Scanner scanner;
 		try {
-			scanner = new Scanner(new File("src/DataStorage/todo_save.txt"));
+			scanner = new Scanner(new File("src/DataStorage/todo_save_" + username + ".txt"));
 
 			int index = 0;
 			while (scanner.hasNextLine())
@@ -80,7 +80,7 @@ public class Data
 				}	
 			scanner.close();
 			
-			scanner = new Scanner(new File("src/DataStorage/finished_save.txt"));
+			scanner = new Scanner(new File("src/DataStorage/finished_save_" + username + ".txt"));
 			index = 0;
 			while (scanner.hasNextLine())
 				{
@@ -93,7 +93,7 @@ public class Data
 		{
 			e.printStackTrace();
 		}
-
+		
 		@SuppressWarnings("rawtypes")
 		DefaultListModel[] array = {toDoListModel, finishedListModel};	
 		return array;
