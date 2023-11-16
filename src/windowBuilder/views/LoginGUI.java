@@ -38,6 +38,7 @@ public class LoginGUI extends JFrame
 	
 	private Timer timer;
 	private JButton btnQuit;
+	private JButton btnCreateAccount;
 	
 	//Frame
 	public LoginGUI() 
@@ -60,10 +61,12 @@ public class LoginGUI extends JFrame
 		contentPane = new JPanel();
 		
 		btnQuit = new JButton("Quit");
+		
+		btnCreateAccount = new JButton("Create account");
 
 		gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
@@ -75,6 +78,8 @@ public class LoginGUI extends JFrame
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(btnCreateAccount)
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap())
 						.addGroup(gl_contentPane.createSequentialGroup()
@@ -82,8 +87,8 @@ public class LoginGUI extends JFrame
 								.addComponent(passwordField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
 								.addComponent(textUsername, GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))
 							.addGap(10))))
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addContainerGap(331, Short.MAX_VALUE)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(365, Short.MAX_VALUE)
 					.addComponent(btnQuit)
 					.addContainerGap())
 		);
@@ -99,7 +104,9 @@ public class LoginGUI extends JFrame
 						.addComponent(lblPassword)
 						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
-					.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnCreateAccount, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
 					.addComponent(btnQuit)
 					.addContainerGap())
@@ -177,6 +184,15 @@ public class LoginGUI extends JFrame
 			public void actionPerformed(ActionEvent e) 
 			{
 				System.exit(0);
+			}
+		});
+		
+		btnCreateAccount.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				CreateAccount frame = new CreateAccount();
+				frame.setVisible(true);
 			}
 		});
 	}

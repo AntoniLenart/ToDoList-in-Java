@@ -39,6 +39,22 @@ public class Login
         }
     }
     
+    //Create account method.
+    public void createAccount(String username, String password)
+    {
+		try 
+		{
+			FileWriter writer = new FileWriter(new File("src/DataStorage/credentials_" + username + ".txt"));
+			writer.write(username + "\n" + password);
+			writer.close();
+		} 
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
     //Username methods.
     public void setUsername(String newUsername) 
     {
