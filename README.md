@@ -12,6 +12,7 @@ The project is designed for learning purposes, providing an opportunity to pract
 - **Account Management**: You can create new accounts. You can change your username and password. Tasks are individually saved for each user.
 
 ## How to use
+- **First time run**: Download To-Do List.jar then run it on your device.
 - **Login**: Upon launching the application, users are prompted with a login window. Create an account or enter your username and password to access your to-do list.
 - **To-Do List Management**: After logging in, you'll be directed to your personalized to-do list interface. Add new tasks, mark tasks as completed, delete tasks, or update existing tasks easily using the provided functionalities.
 
