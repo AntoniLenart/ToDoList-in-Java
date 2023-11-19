@@ -17,6 +17,11 @@ import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 
+/**
+ * The ChangeUsername class represents a window where users can change their usernames.
+ * It provides functionality to update the username for the logged-in user.
+ */
+
 public class ChangeUsername extends JFrame 
 {
 	private static final long serialVersionUID = 1L;
@@ -29,9 +34,11 @@ public class ChangeUsername extends JFrame
 	private JButton btnApply;
 	private JButton btnCancel;
 
-	/**
-	 * Create the frame.
-	 */
+    /**
+     * Constructs the ChangeUsername window for a specific user.
+     *
+     * @param username The username for which the username will be changed.
+     */
 	public ChangeUsername(String username) 
 	{
 		initComponents();
@@ -103,6 +110,12 @@ public class ChangeUsername extends JFrame
 		contentPane.setLayout(gl_contentPane);
 	}
 	
+    /**
+     * Sets up action listeners for Apply and Cancel buttons.
+     * Handles events when the user attempts to change the username.
+     *
+     * @param username The username for which the username will be changed.
+     */
 	private void createEvents(String username) 
 	{
 		btnApply.addActionListener(new ActionListener() 
@@ -111,7 +124,7 @@ public class ChangeUsername extends JFrame
 			{
 		        try 
 		        {
-		            Scanner scan = new Scanner(new File("src/DataStorage/credentials_" + username + ".txt"));
+		            Scanner scan = new Scanner(new File("./DataStorage/credentials_" + username + ".txt"));
 		            
 		            String username = scan.nextLine();
 		            String password = scan.nextLine();
@@ -127,13 +140,14 @@ public class ChangeUsername extends JFrame
 						login.setUsername(newUsername);
 						login.setPassword(password);
 						
-						dispose();
+						dispose(); //Close window.
 					}
 					else 
 					{
 						NotSuccessfulLogin frame = new NotSuccessfulLogin();
 						frame.setVisible(true);
 						
+						//Reset username fields.
 						textFieldOldUsername.setText(null);
 						textFieldNewUsername.setText(null);
 					}
@@ -149,7 +163,7 @@ public class ChangeUsername extends JFrame
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				dispose();
+				dispose(); //Close window
 			}
 		});
 	}

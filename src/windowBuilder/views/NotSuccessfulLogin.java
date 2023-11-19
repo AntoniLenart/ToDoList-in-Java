@@ -1,7 +1,5 @@
 package windowBuilder.views;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -22,28 +20,6 @@ public class NotSuccessfulLogin extends JFrame
 	private JPanel contentPane;
 	private JButton btnTryAgain;
 	private JLabel lblNewLabel;
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) 
-	{
-		EventQueue.invokeLater(new Runnable() 
-		{
-			public void run() 
-			{
-				try 
-				{
-					NotSuccessfulLogin frame = new NotSuccessfulLogin();
-					frame.setVisible(true);
-				} 
-				catch (Exception e) 
-				{
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.

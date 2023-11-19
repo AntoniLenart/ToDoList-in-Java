@@ -19,6 +19,12 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+
+/**
+ * LoginGUI represents the login window of the application.
+ * It allows users to log in, create an account, or quit the application.
+ */
+
 public class LoginGUI extends JFrame 
 {
 	private static final long serialVersionUID = 1L;
@@ -132,6 +138,10 @@ public class LoginGUI extends JFrame
 	}
 
 	//This method contains all of the code for creating events.
+    /**
+     * Sets up event listeners for buttons to handle user interactions.
+     * Performs login, quit application, and account creation functionalities.
+     */
 	private void createEvents() 
 	{
 		btnLogin.addActionListener(new ActionListener() 

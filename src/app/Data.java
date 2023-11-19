@@ -9,12 +9,27 @@ import java.util.Scanner;
 
 import javax.swing.DefaultListModel;
 
+
+/**
+ * The Data class manages the saving and loading of tasks for the application.
+ * It saves tasks to and loads tasks from text files.
+ */
+
 public class Data 
 {
 	private String[] toDoList;
 	private String[] finishedList;
 	
 	//This method saves tasks to config files (todo_save and finished_save.txt). 
+	
+	/**
+     * Saves tasks to configuration files for ToDo and Finished lists.
+     *
+     * @param toDoModel     DefaultListModel representing tasks in the ToDo list.
+     * @param finishedModel DefaultListModel representing tasks in the Finished list.
+     * @param username      The username to create separate task files for different users.
+     */
+	
 	public void saveTasks(DefaultListModel<String> toDoModel, DefaultListModel<String> finishedModel, String username) 
 	{
 	    toDoList = new String[toDoModel.getSize()];
@@ -33,7 +48,7 @@ public class Data
 	    try 
 	    {
 	        // Save to-do tasks.
-	        FileWriter writerToDo = new FileWriter(new File("src/DataStorage/todo_save_" + username + ".txt"));
+	        FileWriter writerToDo = new FileWriter(new File("./DataStorage/todo_save_" + username + ".txt"));
 	        BufferedWriter bufferedWriterToDo = new BufferedWriter(writerToDo);
 	        
 	        for (String task : toDoList) 
@@ -44,7 +59,7 @@ public class Data
 	        bufferedWriterToDo.close();
 
 	        // Save finished tasks.
-	        FileWriter writerFinished = new FileWriter(new File("src/DataStorage/finished_save_" + username + ".txt"));
+	        FileWriter writerFinished = new FileWriter(new File("./DataStorage/finished_save_" + username + ".txt"));
 	        BufferedWriter bufferedWriterFinished = new BufferedWriter(writerFinished);
 	        
 	        for (String task : finishedList) 
@@ -62,6 +77,14 @@ public class Data
 	
 	//This method loads tasks using scanner and returns array of length 2
 	//with toDoModel([0]) and finishedModel([1])
+	
+    /**
+     * Loads tasks from saved text files and returns them as DefaultListModel arrays.
+     *
+     * @param username The username to load tasks specific to that user.
+     * @return An array containing DefaultListModel for ToDo and Finished tasks.
+     */
+	
 	@SuppressWarnings("unchecked")
 	public DefaultListModel<String>[] loadTasks(String username)
 	{
@@ -70,7 +93,7 @@ public class Data
         
 		Scanner scanner;
 		try {
-			scanner = new Scanner(new File("src/DataStorage/todo_save_" + username + ".txt"));
+			scanner = new Scanner(new File("./DataStorage/todo_save_" + username + ".txt"));
 
 			int index = 0;
 			while (scanner.hasNextLine())
@@ -80,7 +103,7 @@ public class Data
 				}	
 			scanner.close();
 			
-			scanner = new Scanner(new File("src/DataStorage/finished_save_" + username + ".txt"));
+			scanner = new Scanner(new File("./DataStorage/finished_save_" + username + ".txt"));
 			index = 0;
 			while (scanner.hasNextLine())
 				{

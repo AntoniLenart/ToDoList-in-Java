@@ -9,6 +9,11 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.Font;
 import java.awt.Toolkit;
 
+
+/**
+ * The SuccessfulLogin class represents a window indicating a successful login.
+ * It displays a welcome message to the user after successful authentication.
+ */
 public class SuccessfulLogin extends JFrame 
 {
 
@@ -18,14 +23,22 @@ public class SuccessfulLogin extends JFrame
 	private String username;
 	private JLabel lblSuccess;
 
-	//Method uses argument, so user can be welcomed with its username.
+
+    /**
+     * Initializes the SuccessfulLogin window displaying a welcome message to the user.
+     *
+     * @param username The username of the logged-in user to be displayed in the welcome message.
+     */
 	public SuccessfulLogin(String username) 
 	{
 		this.username = username;
 		initComponents();
 	}
 	
-	//This method contains all of the code for creating and initializing components.
+    /**
+     * Initializes and sets up GUI components for the SuccessfulLogin window.
+     * Displays a welcome message with the username.
+     */
 	private void initComponents() 
 	{
 		//Components

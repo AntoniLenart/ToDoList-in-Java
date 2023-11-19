@@ -1,13 +1,9 @@
 package windowBuilder.views;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import app.Login;
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -17,10 +13,14 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Toolkit;
-import javax.swing.UIManager;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+
+/**
+ * The CreateAccount class represents a window for creating a new user account.
+ * Users can input their desired username and password to create a new account.
+ */
 public class CreateAccount extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -34,26 +34,6 @@ public class CreateAccount extends JFrame {
 	private JButton btnCancel;
 	private JButton btnCreate;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CreateAccount frame = new CreateAccount();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -135,13 +115,18 @@ public class CreateAccount extends JFrame {
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
+	
+    /**
+     * Sets up action listeners for Cancel and Create buttons.
+     * Handles events when users attempt to create a new account.
+     */
 	private void createEvents()
 	{
 		btnCancel.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				dispose();
+				dispose(); //Close window.
 			}
 		});
 		
@@ -161,7 +146,7 @@ public class CreateAccount extends JFrame {
 				{
 					Login login = new Login();
 					login.createAccount(username, password);
-					dispose();
+					dispose(); //Close window.
 				}
 			}
 		});

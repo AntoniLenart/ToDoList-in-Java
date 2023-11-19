@@ -1,26 +1,20 @@
 package app;
 
-import java.awt.EventQueue;
-import windowBuilder.views.LoginGUI;
+import java.io.File;
+import windowBuilder.views.*;
 
 public class Main 
 {
 	public static void main(String[] args) 
 	{
-		EventQueue.invokeLater(new Runnable() 
+		//Create DataStorage directory, when running application first time.
+		if (!new File("./DataStorage").exists())
 		{
-			public void run() 
-			{
-				try 
-				{
-					LoginGUI frame = new LoginGUI();
-					frame.setVisible(true);
-				} 
-				catch (Exception e) 
-				{
-					e.printStackTrace();
-				}
-			}
-		});
+			new File("./DataStorage").mkdirs();
+		}
+		
+		//Run app.
+		LoginGUI frame = new LoginGUI();
+		frame.setVisible(true);
 	}
 }

@@ -64,10 +64,15 @@ public class MainGUI extends JFrame
 	private JMenuItem mntmChangeUsername;
 
 	//Frame
+
+	/**
+	 * Initializes the MainGUI window for a specific user.
+	 *
+	 * @param username. The username of the user accessing the application.
+	 */
 	public MainGUI(String username) 
 	{
 		this.username = username;
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MainGUI.class.getResource("/windowBuilder/resources/todolist_128.png")));
 		Data tmp = new Data();
 
 		initComponents(tmp.loadTasks(username));
@@ -75,6 +80,15 @@ public class MainGUI extends JFrame
 	}
 	
 	//This method contains all of the code for creating and initializing components.
+	
+	/**
+     * Initializes all the graphical components and sets up the event listeners.
+     *
+     * @param loadTasks An array containing lists of tasks to load initially.
+     *                  loadTasks[0] represents tasks in the 'ToDo' list,
+     *                  loadTasks[1] represents tasks in the 'Finished' list.
+     */
+	
 	private void initComponents(DefaultListModel<String>[] loadTasks) 
 	{
 		//Components
@@ -113,6 +127,7 @@ public class MainGUI extends JFrame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 660, 469);
 		
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainGUI.class.getResource("/windowBuilder/resources/todolist_128.png")));
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
@@ -223,6 +238,10 @@ public class MainGUI extends JFrame
 	}
 	
 	//This method contains all of the code for creating events.
+	/**
+     * Sets up event listeners for buttons and menu items to handle user interactions.
+     */
+	
 	private void createEvents()
 	{
 		btnFinish.addActionListener(new ActionListener() 

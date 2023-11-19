@@ -17,6 +17,10 @@ import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 
+/**
+ * The ChangePassword class represents a window where users can change their passwords.
+ * It provides functionality to update the password for the logged-in user.
+ */
 public class ChangePassword extends JFrame 
 {
 	private static final long serialVersionUID = 1L;
@@ -29,37 +33,20 @@ public class ChangePassword extends JFrame
 	private JButton btnApply;
 	private JButton btnCancel;
 
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) 
-//	{
-//		EventQueue.invokeLater(new Runnable() 
-//		{
-//			public void run() 
-//			{
-//				try 
-//				{
-//					ChangePassword frame = new ChangePassword(username);
-//					frame.setVisible(true);
-//				} 
-//				catch (Exception e) 
-//				{
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	/**
-	 * Create the frame.
-	 */
+    /**
+     * Constructs the ChangePassword window for a specific user.
+     *
+     * @param username The username for which the password will be changed.
+     */
 	public ChangePassword(String username) 
 	{	
 		initComponents();
 		createEvents(username);
 	}
 	
+    /**
+     * Initializes and sets up GUI components for the ChangePassword window.
+     */
 	private void initComponents()
 	{
 		// Components.
@@ -124,6 +111,12 @@ public class ChangePassword extends JFrame
 		contentPane.setLayout(gl_contentPane);
 	}
 	
+    /**
+     * Sets up action listeners for Apply and Cancel buttons.
+     * Handles events when the user attempts to change the password.
+     *
+     * @param username The username for which the password will be changed.
+     */
 	private void createEvents(String username) 
 	{
 		btnApply.addActionListener(new ActionListener() 
@@ -132,7 +125,7 @@ public class ChangePassword extends JFrame
 			{
 		        try 
 		        {
-		            Scanner scan = new Scanner(new File("src/DataStorage/credentials_" + username + ".txt"));
+		            Scanner scan = new Scanner(new File("./DataStorage/credentials_" + username + ".txt"));
 		            
 		            String username = scan.nextLine();
 		            String password = scan.nextLine();
@@ -144,19 +137,22 @@ public class ChangePassword extends JFrame
 		            String oldPassword = new String(oldPasswordChars);
 					String newPassword = new String (newPasswordChars);
 					
+					// Update password if old password matches.
 					if (password.equals(oldPassword))
 					{
 						Login tmp = new Login();
 						tmp.setPassword(newPassword);
 						tmp.setUsername(username);
 						
-						dispose();
+						dispose(); //Close window.
 					}
 					else 
 					{
+						// Display error message if old password doesn't match.
 						NotSuccessfulLogin frame = new NotSuccessfulLogin();
 						frame.setVisible(true);
 						
+						// Reset password fields.
 						passwordFieldOldPassword.setText(null);
 						passwordFieldNewPassword.setText(null);
 					}
@@ -172,7 +168,7 @@ public class ChangePassword extends JFrame
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				dispose();
+				dispose(); //Close window.
 			}
 		});
 	}
